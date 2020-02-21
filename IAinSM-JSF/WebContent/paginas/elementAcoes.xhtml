@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layoutTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<title>IAinSM - Artificial Inteligence in Stock Market</title>
+		<h:outputStylesheet library="css" name="main.css" />
+	</h:head>
+
+
+	<ui:define name="top">
+		<h:form>
+			<p:growl id="acoesGrowl"></p:growl>
+			<div style="float: left; width: 90%; padding: 5px">
+				<b>IAinSM </b>- Artificical Inteligence in Stock Market
+			</div>
+
+			<div style="float: left; width: 3%" align="right">
+				<p:commandButton id="btnConteudo" value="Voltar"
+					action="#{navegacaoMB.getUrl('conteudo')}" />
+			</div>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable id="listRegras" var="regr"
+				value="#{regrasMB.listRegrasByEmail}" paginator="true" rows="10"
+				rowStyleClass="#{regr.matchGanho le false ? 'amarelo' : 'verde'}">
+
+				<f:facet name="header">  Painel Acompanhamento das Regras  </f:facet>
+
+				<p:column headerText="Regra"> #{regr.apelido} </p:column>
+				<p:column headerText="Codigo"> #{regr.regraPK.codNegociacao}</p:column>
+				<p:column headerText="Stop Ganho %"> #{regr.stopGanho} </p:column>
+				<p:column headerText="Stop Perda %"> #{regr.stopPerda}</p:column>
+				<p:column headerText="Valor Comprado"> #{regr.valorCompra}</p:column>
+				<p:column headerText="Venda na Alta"> #{regr.valorGanho}</p:column>
+				<p:column headerText="Match">
+					<p:selectBooleanCheckbox value="#{regr.matchGanho}" disabled="true" />
+				</p:column>
+				<p:column headerText="Venda na Baixa"> #{regr.valorPerda} </p:column>
+				<p:column headerText="Match">
+					<p:selectBooleanCheckbox value="#{regr.matchPerda}" disabled="true" />
+				</p:column>
+				<p:column headerText="Valor Ofertado"> #{regr.oferta} </p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

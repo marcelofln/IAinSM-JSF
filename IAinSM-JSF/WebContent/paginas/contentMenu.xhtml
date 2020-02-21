@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layoutTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="top">
+	<h:form>
+	<p:growl id="menuGrowl01"></p:growl>
+			<div align="left">
+				<p:graphicImage value="/image/Logo_IAinSM_2.png" />
+			</div>
+			<div align="center">
+			
+			
+				<p:toolbar>
+					<p:toolbarGroup align="center">
+						<p:commandButton id="btnAtivo"  value="Match's" 						action="#{navegacaoMB.getUrl('ativos')}" />
+						<p:commandButton id="btnRegras" value="Regras" 						action="#{navegacaoMB.getUrl('regras')}" />
+						<p:commandButton id="btnRelato" value="Gráficos" 					action="#{navegacaoMB.getUrl('relatorios')}" />
+						<p:commandButton id="btnTimer"  value="Timer" 						action="#{navegacaoMB.getUrl('timer')}"/>
+						<p:commandButton id="btnConfig" value="Configurações" 				action="#{navegacaoMB.getUrl('configuracao')}" />
+						<p:commandButton id="btnUpload" value="Carregar Dados Históricos" 	action="#{navegacaoMB.getUrl('uploadPapeis')}"/>
+					</p:toolbarGroup>
+				</p:toolbar>
+			</div>
+			<div align="right">
+				#{userLogin.email} ||
+				<h:commandLink action="#{userLogin.logOut()}"
+					value="#{msg.logout}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
+
+
+

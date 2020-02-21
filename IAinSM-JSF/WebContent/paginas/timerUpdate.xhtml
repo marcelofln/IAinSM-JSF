@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layoutTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="top">
+		<h:form>
+			<p:growl id="timerGrowl02"></p:growl>
+			<div style="float: left; width: 90%; padding: 5px">
+				<b>IAinSM </b>- Artificical Inteligence in Stock Market
+			</div>
+			<div align="right">
+				<p:commandButton id="btnTimer" value="Voltar"
+					action="#{navegacaoMB.getUrl('timer')}" />
+			</div>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<p:growl id="messageUpdate" autoUpdate="true"></p:growl>
+		<h:form>
+			<p:growl id="updateGrowl"></p:growl>
+			<div align="center">
+				<h:inputHidden value="#{timerMB.timerIA.id}" />
+
+				<h:panelGrid id="datas" columns="2" cellpadding="5">
+					<h3>Inicio do Timer:</h3>
+					<p:calendar value="#{timerMB.timerIA.dateInicial}"
+						pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR" />
+
+					<h3>Fim do Timer:</h3>
+					<p:calendar value="#{timerMB.timerIA.dateFinal}"
+						pattern="dd/MM/yyyy HH:mm:ss" locale="pt_BR" />
+				</h:panelGrid>
+
+
+				<p:dialog header="Datas Selecionadas" widgetVar="dialog"
+					showEffect="fold" hideEffect="fold">
+
+					<h:panelGrid id="display" columns="2" cellpadding="5">
+
+						<h:outputText value="Timer Inicio: " />
+						<h:outputText value="#{timerMB.timerIA.dateInicial}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+								timeZone="#{timerMB.timeZone}" />
+						</h:outputText>
+
+						<h:outputText value="Timer Fim: " />
+						<h:outputText value="#{timerMB.timerIA.dateFinal}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+								timeZone="#{timerMB.timeZone}" />
+						</h:outputText>
+
+					</h:panelGrid>
+				</p:dialog>
+
+				<h:panelGrid>
+					<h:commandButton action="#{timerMB.updateTimerEnd()}"
+						value="Alterar" />
+				</h:panelGrid>
+
+			</div>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

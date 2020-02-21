@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition template="/WEB-INF/templates/layoutTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="top">
+		<h:form>
+			<p:growl id="regrasGrowl"></p:growl>
+			<div style="float: left; width: 90%; padding: 5px">
+				<b>IAinSM </b>- Artificical Inteligence in Stock Market
+			</div>
+
+			<div style="float: left; width: 3%" align="right">
+				<p:commandButton id="btnConteudo" value="Voltar"
+					action="#{navegacaoMB.getUrl('conteudo')}" />
+			</div>
+		</h:form>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form id="regrasForm" acceptcharset="ISO-8859-1" lang="pt">
+
+			<p:panel id="panelRegras" header="Define parâmetros para regras">
+
+				<h:panelGrid id="gridGeral">
+
+					<p:growl id="regrasPerdaGrowl" autoUpdate="true"></p:growl>
+
+					<p:fieldset legend="Regras">
+						<h:panelGrid columns="2" cellpadding="5">
+
+							<h:outputLabel value="Regras: " />
+							
+							<p:selectOneMenu  	value="#{regrasMB.nomeSelecionado}"
+												required="true"
+												requiredMessage="#{msg.nRegra}">										 
+								<f:selectItem itemLabel="Selecione uma Regra" itemValue="" />
+								<f:selectItems value="#{regrasMB.nomesRegrasMarcelo}" />
+							</p:selectOneMenu>
+
+							<h:outputLabel value="Códigos negociação: " />
+							<p:selectOneMenu id="codigos"
+								value="#{regrasMB.codigoSelecionado}"
+								filter="true"
+								filterMatchMode="startsWith"
+								required="true"
+								requiredMessage="#{msg.codNegociacao}">
+								<f:selectItem itemLabel="Associe a uma Ação" itemValue="" />
+								<f:selectItems value="#{regrasMB.codigosMarcelo}" />
+							</p:selectOneMenu>
+							
+							<h:outputLabel for="inputCompra" value="Valor Compra:"
+								style="font-weight:bold" />
+							<p:inputText id="inputCompra" value="#{regrasMB.valorCompra}"
+								maxlength="5" style="width:50px"
+								validatorMessage="#{msg.valorCompra}">
+								<f:validateRegex pattern="^\d*[0-9](\.\d*[0-9])?$" />
+							</p:inputText>
+							
+							
+						</h:panelGrid>
+				
+					</p:fieldset>
+
+					<p:fieldset legend="Stops" toggleable="true" >
+						<h:panelGrid id="gridStops" columns="2" style="margin-bottom:5px">
+							<h:outputLabel for="inputPerda" value="Stop de Perda:"
+								style="font-weight:bold" />
+							<p:inputText id="inputPerda" value="#{regrasMB.perdaSelecionado}"
+								maxlength="2" style="width:50px"			
+								validatorMessage="#{msg.StopPerda}">
+								<f:validateRegex pattern="^\d*[0-9](\d*[0-9])?$" />
+							</p:inputText>
+
+							<h:outputLabel for="inputGanho" value="Stop de Ganho:"
+								style="font-weight:bold" />
+							<p:inputText id="inputGanho" value="#{regrasMB.ganhoSelecionado}"
+								maxlength="2" style="width:50px"
+								validatorMessage="#{msg.StopoGanho}">
+								<f:validateRegex pattern="^\d*[0-9](\d*[0-9])?$" />
+							</p:inputText>
+							
+						</h:panelGrid>
+						<p:commandButton value="Reset" type="reset"/>
+					</p:fieldset>
+
+					<p:fieldset legend="Periódo de Pesquisa Histórica">
+
+						<h:panelGrid columns="1" style="margin-bottom:5px">
+							<h:panelGroup>
+								<h:outputText value="Selecione o Periódo (anos): " />
+								<h:outputText id="output" />
+							</h:panelGroup>
+							<h:inputHidden id="numeroPeriodo"
+								value="#{regrasMB.periodo}">
+								<f:convertNumber />
+							</h:inputHidden>
+							<p:slider for="numeroPeriodo" display="output"
+								style="width:300px" minValue="1" maxValue="5" />
+						</h:panelGrid>
+
+					</p:fieldset>
+
+					<p:fieldset legend="Quando Associado a uma ação avisar sobre:">
+
+						<h:panelGrid columns="2" style="margin-bottom:5px">
+							<p:selectBooleanCheckbox id="checkMVC"
+								itemLabel="Melhor Valor para Compra"
+								value="#{regrasMB.mvc}" />
+
+							<p:selectBooleanCheckbox id="checkNLP"
+								itemLabel="Novo Limite de Perda"
+								value="#{regrasMB.nlp}" />
+
+							<p:selectBooleanCheckbox id="checkNLG"
+								itemLabel="Novo Limite de Ganho"
+								value="#{regrasMB.nlg}" />
+
+							<p:selectBooleanCheckbox id="checkTPR"
+								itemLabel="Testar Performance da Regra"
+								value="#{regrasMB.tRegra}" />
+						</h:panelGrid>
+
+					</p:fieldset>
+
+					<p:fieldset legend="Renomear como uma nova regra parametrizada">
+
+						<h:panelGrid columns="3" style="margin-bottom:5px">
+							<h:outputLabel for="nRegra"
+								value="Defina um apelido para sua Regra Parametrizada" />
+							<p:inputText id="nRegra" value="#{regrasMB.apelido}"
+								required="true" requiredMessage="#{msg.nomeRequerido}"
+								maxlength="20" style="width: 100px"
+								validatorMessage="#{msg.Apelido}">
+								<f:validateRegex pattern="^[A-Za-z]{1,}$" />
+							</p:inputText>
+						</h:panelGrid>
+					</p:fieldset>
+
+					
+					<p:commandButton 	id="pSalvar" 
+										value="Salvar" 
+										action="#{regrasMB.doGravar()}" 
+										update="panelRegras"/>
+				</h:panelGrid>
+			</p:panel>
+					
+
+		</h:form>
+	</ui:define>
+</ui:composition>

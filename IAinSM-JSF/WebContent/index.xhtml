@@ -1,0 +1,44 @@
+<ui:composition template="/WEB-INF/templates/layoutTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	
+	<ui:define name="content">
+		<div align="center">
+			<p:growl id="msgInicio"></p:growl>
+			<h:form 				id="formLogin" style="height:150px;width:450px">
+				<h1>
+					<h:outputText 	id="bemVindo" 	value="Bem vindo(a) ao sistema: IAinSM" />
+				</h1>
+				
+				<h:panelGrid 		id="gridLoginSenha" columns="2">
+					<h:outputText 	id="loginText" 	value="E-mail:" />
+					<h:inputText 	id="login" 		
+									value="#{userLogin.email}" 	
+									required="true" 
+									requiredMessage="#{msg.emaiRequerido}" 
+									maxlength="70"
+									validatorMessage="#{msg.email}">
+					<f:validateRegex pattern="[A-Za-z0-9_.-]+@([A-Za-z0-9_]+\.)+[A-Za-z]{2,4}"/>
+					</h:inputText>
+					
+					<h:outputText 	id="senhaText" 	value="Password:" />
+					<h:inputSecret 	id="senha" 		
+									value="#{userLogin.password}" 
+									label="Password"  	
+									required="true" 
+									requiredMessage="#{msg.passwordRequerio}"
+									maxlength="20" 								
+									/>
+				</h:panelGrid>
+				<h:commandButton 	id="botao" 		value="Entrar" action="#{userLogin.doEfetuarLogin()}"/>
+			</h:form>
+			<h:form>
+				<h:commandButton 	id="nUsuario" 	value="Cadastrar Novo Usuario" action="#{userLogin.doCadastrarUsuario()}" />
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,28 @@
+@CHARSET "ISO-8859-1";
+
+<style>  
+            .ui-layout-north{ border: 1; }  
+            .ui-layout-center{ border: 1; }  
+            .ui-layout-south{ border: 1; } 
+            .ui-widget { font-size: 12px !important; }  
+</style> 
+        
+.verde {  
+    color: #00FF00;  
+    background-color: #000000;  
+    background-image: none;  
+}  
+      
+.amarelo {  
+    color: #FFFF66;  
+    background-color: #000000;  
+    background-image: none;  
+}  
+  
+.vermelho {  
+    color: #FF0000;  
+    background-color: #000000;  
+    background-image: none;  
+} 
+        
+

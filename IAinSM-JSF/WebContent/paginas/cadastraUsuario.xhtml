@@ -1,0 +1,88 @@
+<ui:composition template="/WEB-INF/templates/layoutTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:define name="top">
+		<h:form>
+			<p:growl id="regrasGrowl"></p:growl>
+			<div style="float: left; width: 90%; padding: 5px">
+				<b>IAinSM </b>- Artificical Inteligence in Stock Market
+			</div>
+
+			<div style="float: left; width: 3%" align="right">
+				<p:commandButton id="btnConteudo" value="Voltar"
+					action="#{navegacaoMB.getUrl('inicio')}" />
+			</div>
+		</h:form>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+
+			<p:panel header="Cadastra Usuario">
+				<p:growl id="message" autoUpdate="true"></p:growl>
+
+				<h:panelGrid id="createPanel" columns="2">
+					<h:outputLabel for="firstname" value="Nome:" />
+					<p:inputText 	id="firstname" 
+									value="#{userMB.user.name}"
+									required="true" 
+									requiredMessage="#{msg.nomeRequerido}"
+									maxlength="70" 
+									style="width: 500px"
+									validatorMessage="#{msg.nome}">
+						<f:validateRegex pattern="^[A-Za-z]{1,}$"/>
+					</p:inputText>
+
+					<h:outputLabel for="email" value="E-mail: " />
+					<p:inputText 	id="email" 
+									value="#{userMB.user.email}"
+									required="true" 
+									requiredMessage="#{msg.emaiRequerido}"
+									maxlength="70"
+									style="width: 500px" 
+									validatorMessage="#{msg.email}">
+						<f:validateRegex pattern="[A-Za-z0-9_.-]+@([A-Za-z0-9_]+\.)+[A-Za-z]{2,4}"/>
+
+					</p:inputText>
+
+					<h:outputLabel for="pwd1" value="Password: " />
+					<p:password 	id="pwd1" 
+									value="#{userMB.user.password}" 
+									match="pwd2"
+									required="true"
+									requiredMessage="#{msg.passwordRequerio}" 
+									feedback="true"
+									maxlength="20"
+									style="width: 100px" 
+									validatorMessage="#{msg.passwordDiferente}"/>
+
+					<h:outputLabel for="pwd2" value="Confirme a Password: " />
+					<p:password 	id="pwd2" 
+									value="#{userMB.user.password}"
+									required="true"
+									requiredMessage="#{msg.confirmaRequerido}" 
+									maxlength="20"
+									style="width: 100px"  />
+					<!-- 
+					<h:outputLabel for="checkCadastra" value="Enviar Relatorios: " />
+					<p:selectBooleanCheckbox id="checkCadastra"
+						value="#{userMB.user.relatorios}" />
+ 					-->
+					<p:commandButton id="btnSave" value="Salvar"
+						action="#{userMB.createUserEnd()}" update="createPanel" />
+
+				</h:panelGrid>
+			
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

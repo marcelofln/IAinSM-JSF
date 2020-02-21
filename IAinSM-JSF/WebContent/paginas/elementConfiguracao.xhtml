@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layoutTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="top">
+		<h:form>
+			<p:growl id="configuraGrowl"></p:growl>
+		
+			<div style="float: left; width: 90%; padding: 5px">
+				<b>IAinSM </b>- Artificical Inteligence in Stock Market
+			</div>
+
+			<div style="float: left; width: 3%" align="right">
+				<p:commandButton id="btnConteudo" value="Voltar"
+					action="#{navegacaoMB.getUrl('conteudo')}" />
+			</div>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<h:commandButton value="Print" type="button" icon="ui-icon-print">
+				<p:printer target="fieldConfiguracao" />
+			</h:commandButton>
+
+			<p:fieldset id="fieldConfiguracao">
+				<h:panelGrid columns="2" cellpadding="5">
+
+					<h:outputLabel for="outNome" value="Nome: " />
+					<h:outputText id="outNome" value="Marcelo Galvão" />
+
+					<h:outputLabel for="outEmail" value="E-mail: " />
+					<h:outputText id="outEmail" value="Marcelo@hotmail.com" />
+
+					<h:outputLabel for="outPassword" value="Password: " />
+					<h:outputText id="outPassword" value="mmGFH21" />
+
+					<h:outputLabel for="outRelatórios" value="Relatórios: " />
+					<h:outputText id="outRelatórios" value="Sim" />
+
+					<h:outputLabel for="outRegras" value="Regras: " />
+					<h:outputText id="outRegras" escape="false"
+						value="Stop de Perda: 35%  Stop de Ganho: 5%  Periodo Pesquisa Histórica: 4 anos " />
+				</h:panelGrid>
+			</p:fieldset>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

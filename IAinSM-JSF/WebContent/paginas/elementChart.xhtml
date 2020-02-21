@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layoutTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="top">
+		<h:form>
+			<p:growl id="relatorioGrowl"></p:growl>
+
+			<div style="float: left; width: 90%; padding: 5px">
+				<b>IAinSM </b>- Artificical Inteligence in Stock Market
+			</div>
+
+			<div style="float: left; width: 3%" align="right">
+				<p:commandButton id="btnConteudo" value="Voltar"
+					action="#{navegacaoMB.getUrl('conteudo')}" />
+			</div>
+		</h:form>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<h:panelGrid columns="1" cellpadding="5">
+
+				<p:selectOneMenu id="chartRegra">
+					<f:selectItem itemLabel="Selecione uma Regra" itemValue="" />
+					<f:selectItems />
+				</p:selectOneMenu>
+
+
+			</h:panelGrid>
+			<p:lineChart id="stacked" value="#{chartMB.categoryModel}"
+				legendPosition="ne" stacked="false" fill="false"
+				title="Stacked and Filled" style="height:300px;margin-top:20px"
+				xaxisLabel="Year" yaxisLabel="Births" zoom="true" />
+
+
+			<!-- 
+<h:panelGrid columns="1" cellpadding="5">
+
+<p:selectOneMenu id="chartRegra" value="#{pprBean.city}">
+	<f:selectItem itemLabel="Selecione uma Regra" itemValue="" />
+	<f:selectItems value="#{pprBean.cities}" />
+</p:selectOneMenu>
+
+
+</h:panelGrid>
+<p:lineChart id="stacked" value="#{chartMB.categoryModel}"
+	legendPosition="ne" stacked="false" fill="false"
+	title="Stacked and Filled" style="height:300px;margin-top:20px"
+	xaxisLabel="Year" yaxisLabel="Births" zoom="true" />
+
+
+
+
+
+ -->
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

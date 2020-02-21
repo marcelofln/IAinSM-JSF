@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layoutTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="top">
+		<h:form>
+			<p:growl id="timerGrowl"></p:growl>
+			<div style="float: left; width: 90%; padding: 5px">
+				<b>IAinSM </b>- Artificical Inteligence in Stock Market
+			</div>
+
+			<div style="float: left; width: 3%" align="right">
+				<p:commandButton id="btnConteudo" value="Voltar"
+					action="#{navegacaoMB.getUrl('conteudo')}" />
+			</div>
+		</h:form>
+	</ui:define>
+
+
+
+	<ui:define name="content">
+		<p:growl id="messageTimer" autoUpdate="true"></p:growl>
+		<h:form>
+
+		<p:panel id="painelGeralTimer" header="Define parâmetros para Timer" >
+
+			<p:fieldset style="width:500px">
+
+				<p:growl id="createTimer" autoUpdate="true"></p:growl>
+
+
+				<p:panelGrid columns="2">
+
+					<h:outputLabel value="Data Inicio:" style="font-weight:bold" />
+					<h:outputLabel value="Data Fim:" style="font-weight:bold" />
+
+					<p:calendar value="#{timerMB.timerIA.dateInicial}"
+						pattern="dd/MM/yyyy HH:mm:ss" locale="pt" readonlyInput="true" />
+
+					<p:calendar value="#{timerMB.timerIA.dateFinal}"
+						pattern="dd/MM/yyyy HH:mm:ss" locale="pt" readonlyInput="true" />
+
+					<p:commandButton value="Ligar" update="painelGeralTimer"
+						action="#{timerMB.updateTimerEnd()}" oncomplete="dialog.show()"/>
+
+					<h:inputHidden value="#{timerMB.timerIA.emailIA}" />
+
+				</p:panelGrid>
+
+
+				<p:dialog header="Datas Selecionadas" widgetVar="dialog"
+					showEffect="fold" hideEffect="fold">
+
+					<h:panelGrid id="display" columns="2" >
+
+						<h:outputText value="Timer Inicio: " />
+						<h:outputText value="#{timerMB.timerIA.dateInicial}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+								timeZone="#{timerMB.timeZone}" />
+						</h:outputText>
+
+						<h:outputText value="Timer Fim: " />
+						<h:outputText value="#{timerMB.timerIA.dateFinal}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+								timeZone="#{timerMB.timeZone}" />
+						</h:outputText>
+
+					</h:panelGrid>
+				</p:dialog>
+
+			</p:fieldset>
+
+			
+
+			<p:fieldset style="width:500px">
+				
+					<h:dataTable 	id="dataTimerSetado" 
+									value="#{timerMB.listTimerByMail}" 
+									var="tim"
+									styleClass="table" 
+									headerClass="tableColumnsHeader"
+									rowClasses="tableFirstLine, tableNextLine"
+									>
+
+						<p:column>
+							<f:facet name="header"> #{msg.Di} </f:facet>
+							#{tim.dateInicial}
+						</p:column>
+						
+						<p:column> </p:column>
+
+						<p:column>
+							<f:facet name="header"> #{msg.Df} </f:facet>
+							#{tim.dateFinal}
+						</p:column>
+						
+						<p:column> </p:column>
+							
+						<p:column>
+							<f:facet name="header"> #{msg.TM} </f:facet>
+							#{tim.emailIA}
+						</p:column>
+						
+						<p:column> </p:column>
+						<p:column>
+							
+								<h:inputHidden value="#{tim.id}" />
+								<h:commandButton action="#{timerMB.deleteTimerEnd()}"
+									value="Deletar">
+									<f:setPropertyActionListener target="#{timerMB.timerIA}" value="#{tim}" />
+								</h:commandButton>
+							
+						</p:column>
+					</h:dataTable>
+				
+			</p:fieldset>
+		</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
